@@ -1,5 +1,7 @@
 import 'package:bmi_calculator/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 class BmiHome extends StatefulWidget {
   const BmiHome({super.key});
 
@@ -13,6 +15,71 @@ class _BmiHomeState extends State<BmiHome> {
   String status = '';
   double bmi = 0.0;
   Color color = Colors.green;
+  _updateBmi(){
+    bmi = weightValue /(heightValue*heightValue);
+    _updateStatus();
+    _updateColor();
+  }
+  _updateStatus(){
+    status = _getStatus();
+
+  }
+  _updateColor(){
+    if(bmi<16.0){
+      color = Colors.green.shade100 ;
+    }
+    else if(bmi>=16.0 && bmi <= 16.9){
+      color = Colors.green.shade200 ;
+    }
+    else if(bmi>=17.0 && bmi <= 18.4){
+      color = Colors.green.shade300 ;
+    }
+    else if(bmi>=18.5 && bmi <= 24.9){
+      color = Colors.green ;
+    }
+    else if(bmi>=25.0 && bmi <= 29.9){
+      color = Colors.red.shade400 ;
+    }
+    else if(bmi>=30.0 && bmi <= 34.9){
+      color = Colors.red.shade500 ;
+    }
+    else if(bmi>=35.0 && bmi <= 39.9){
+      color = Colors.red.shade600 ;
+    }
+    else {
+      color = Colors.red.shade900 ;
+    }
+
+  }
+  String _getStatus(){
+    if(bmi<16.0){
+      return Bmi.underWeightSevere;
+    }
+    if(bmi>=16.0 && bmi <= 16.9){
+      return Bmi.underWeightModerate;
+    }
+    if(bmi>=17.0 && bmi <= 18.4){
+      return Bmi.underWeightMild;
+    }
+    if(bmi>=18.5 && bmi <= 24.9){
+      return Bmi.normal;
+    }
+    if(bmi>=25.0 && bmi <= 29.9){
+      return Bmi.normal;
+    }
+    if(bmi>=30.0 && bmi <= 34.9){
+      return Bmi.obese_1;
+    }
+    if(bmi>=35.0 && bmi <= 39.9){
+      return Bmi.obese_2;
+    }
+    return Bmi.obese_3;
+  }
+  @override
+  void initState() {
+    _updateBmi();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +101,7 @@ class _BmiHomeState extends State<BmiHome> {
                 setState(() {
                   heightValue = newValue;
                 });
+                _updateBmi();
               }
           ),
           BmiSlidder(
@@ -41,19 +109,22 @@ class _BmiHomeState extends State<BmiHome> {
               unit: BmiUnit.kg,
               sliderValue: weightValue,
               sliderDivision: 200,
-              sliderMax: 180,
-              sliderMin: 20,
+              sliderMax: 130,
+              sliderMin: 30,
               onChanged: (newValue){
                 setState(() {
                   weightValue = newValue;
                 });
+                _updateBmi();
               }
           ),
+          Expanded(child: BmiResult(color: color, bmi: bmi, status: status))
         ],
       ),
     );
   }
 }
+
 
 
 class BmiSlidder extends StatelessWidget {
@@ -120,3 +191,41 @@ class BmiSlidder extends StatelessWidget {
     );
   }
 }
+
+class BmiResult extends StatelessWidget {
+  final Color color;
+  final double bmi;
+  final String status;
+  const BmiResult({
+    super.key,
+    required this.color,
+    required this.bmi,
+    required this.status,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return  Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+       AnimatedContainer(
+         duration:  Duration(milliseconds: 500),
+         alignment: Alignment.center,
+         width: 160,
+         height: 160,
+         decoration: BoxDecoration(
+           shape: BoxShape.circle,
+           border: Border.all(color: color,width: 10),
+         ),
+         child: Text(bmi.toStringAsFixed(1),style: txtValueStyle,),
+
+       ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Text(status,style: txtResultStyle,),
+        )
+      ],
+    );
+  }
+}
+

@@ -5,6 +5,19 @@ const txtLabelStyle = TextStyle(
   color: Colors.white70,
   fontSize: 40,
 );
+
+const txtValueStyle = TextStyle(
+  color: Colors.white60,
+  fontSize: 60,
+);
+
+const txtResultStyle = TextStyle(
+  color: Colors.white60,
+  fontSize: 25,
+  letterSpacing: 1.2,
+  fontWeight: FontWeight.bold,
+
+);
 abstract final class Bmi{
   static const String underWeightSevere = 'UnderWeight(thinnes)';
   static const String underWeightModerate = 'UnderWeight(Moderate thinnes)';
