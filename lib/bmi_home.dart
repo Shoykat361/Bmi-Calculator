@@ -20,7 +20,10 @@ class _BmiHomeState extends State<BmiHome> {
     _updateStatus();
     _updateColor();
   }
+  _updateStatus(){
+    status = _getStatus();
 
+  }
   _updateColor(){
     if(bmi<16.0){
       color = Colors.green.shade100 ;
