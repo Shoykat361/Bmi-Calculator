@@ -1,6 +1,13 @@
+import 'dart:async';
+
 import 'package:bmi_calculator/bmi_provider.dart';
 import 'package:bmi_calculator/constants.dart';
+import 'package:bmi_calculator/container_box.dart';
+import 'package:bmi_calculator/data_container.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class BmiHome extends StatefulWidget {
@@ -20,6 +27,7 @@ class _BmiHomeState extends State<BmiHome> {
       ),
       body: Column(
         children: [
+          Consumer<BmiProvider>(builder: (context, provider, child) => Person(),),
           Consumer<BmiProvider>(
             builder: (context, provider, child) => BmiSlider(
               label: 'Height',
@@ -61,6 +69,30 @@ class _BmiHomeState extends State<BmiHome> {
   }
 }
 
+class Person extends StatelessWidget {
+  const Person({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          child: ContainerBox(boxColor: Colors.red, childwidget: DataContainer(
+            title: 'Male', icon: FontAwesomeIcons.male,
+          ),),
+        ),
+        Expanded(
+          child: ContainerBox(boxColor: Colors.red, childwidget: DataContainer(
+
+            title: 'Female', icon: FontAwesomeIcons.female,
+          ),),
+        ),
+      ],
+    );
+  }
+}
 class BmiSlider extends StatelessWidget {
   const BmiSlider({
     super.key,
@@ -158,4 +190,7 @@ class BmiResult extends StatelessWidget {
     );
   }
 }
+
+
+
 
