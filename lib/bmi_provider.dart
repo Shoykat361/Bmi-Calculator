@@ -22,6 +22,7 @@ class BmiProvider extends ChangeNotifier {
     _updateBmi();
   }
 
+
   changeHeight(double value) {
     _heightValue = value;
     _updateBmi();
@@ -45,6 +46,12 @@ class BmiProvider extends ChangeNotifier {
     _male = !value; // Ensure only one gender is selected
     notifyListeners();
   }
+  //saha
+  updateStatus(String newStatus) {
+    _status = newStatus;
+    notifyListeners();
+  }
+
 
   _updateBmi() {
     _bmi = weightValue / (heightValue * heightValue);
@@ -79,8 +86,9 @@ class BmiProvider extends ChangeNotifier {
   String _getStatus() {
     if(bmi < 16.0) {
       return BMI.underweightSevere;
+
     }
-    if(bmi >= 16.0 && bmi <= 16.9) {
+    if(bmi >= 16.0 && bmi <= 16.9 ) {
       return BMI.underweightModerate;
     }
     if(bmi >= 17.0 && bmi <= 18.4) {

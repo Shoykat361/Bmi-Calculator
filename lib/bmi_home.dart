@@ -4,9 +4,8 @@ import 'package:bmi_calculator/bmi_provider.dart';
 import 'package:bmi_calculator/constants.dart';
 import 'package:bmi_calculator/container_box.dart';
 import 'package:bmi_calculator/data_container.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -73,7 +72,7 @@ class _BmiHomeState extends State<BmiHome> {
   }
 }
 
-class Person extends StatelessWidget {
+/*class Person extends StatelessWidget {
   const Person({super.key});
 
   @override
@@ -96,7 +95,7 @@ class Person extends StatelessWidget {
       ],
     );
   }
-}
+}*/
 class BmiSlider extends StatelessWidget {
   const BmiSlider({
     super.key,
@@ -193,6 +192,48 @@ class BmiResult extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text(status, style: txtResultStyle,),
         )
+      ],
+    );
+  }
+}
+
+class Person extends StatelessWidget {
+  const Person({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              Provider.of<BmiProvider>(context, listen: false).updateMale(true);
+            },
+            child: ContainerBox(
+              boxColor: Colors.red,
+              childwidget: DataContainer(
+                title: 'Male',
+                icon: FontAwesomeIcons.male,
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              Provider.of<BmiProvider>(context, listen: false).updateFemale(true);
+            },
+            child: ContainerBox(
+              boxColor: Colors.red,
+              childwidget: DataContainer(
+                title: 'Female',
+                icon: FontAwesomeIcons.female,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
