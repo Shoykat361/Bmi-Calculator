@@ -7,12 +7,16 @@ class BmiProvider extends ChangeNotifier {
   String _status = '';
   double _bmi = 0.0;
   Color _color = Colors.green;
+  bool _male = false;
+  bool _female = false;
 
   double get heightValue => _heightValue;
   double get weightValue => _weightValue;
   String get status => _status;
   double get bmi => _bmi;
   Color get color => _color;
+  bool get male => _male;
+  bool get female => _female;
 
   BmiProvider() {
     _updateBmi();
@@ -27,6 +31,18 @@ class BmiProvider extends ChangeNotifier {
   changeWeight(double value) {
     _weightValue = value;
     _updateBmi();
+    notifyListeners();
+  }
+
+  updateMale(bool value) {
+    _male = value;
+    _female = !value; // Ensure only one gender is selected
+    notifyListeners();
+  }
+
+  updateFemale(bool value) {
+    _female = value;
+    _male = !value; // Ensure only one gender is selected
     notifyListeners();
   }
 
@@ -84,4 +100,5 @@ class BmiProvider extends ChangeNotifier {
     }
     return BMI.obese_3;
   }
+
 }

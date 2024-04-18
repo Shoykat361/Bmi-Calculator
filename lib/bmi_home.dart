@@ -25,45 +25,49 @@ class _BmiHomeState extends State<BmiHome> {
       appBar: AppBar(
         title: const Text('BMI Calculator'),
       ),
-      body: Column(
-        children: [
-          Consumer<BmiProvider>(builder: (context, provider, child) => Person(),),
-          Consumer<BmiProvider>(
-            builder: (context, provider, child) => BmiSlider(
-              label: 'Height',
-              unit: BmiUnit.m,
-              sliderValue: provider.heightValue,
-              sliderDivision: 100,
-              sliderMax: 2.2,
-              sliderMin: 1.2,
-              onChange: (newValue) {
-                provider.changeHeight(newValue);
-              },
-            ),
-          ),
-          Consumer<BmiProvider>(
-            builder: (context, provider, child) => BmiSlider(
-              label: 'Weight',
-              unit: BmiUnit.kg,
-              sliderValue: provider.weightValue,
-              sliderDivision: 200,
-              sliderMax: 130.0,
-              sliderMin: 30.0,
-              onChange: (newValue) {
-                provider.changeWeight(newValue);
-              },
-            ),
-          ),
-          Expanded(
-            child: Consumer<BmiProvider>(
-              builder: (context, provider, child) => BmiResult(
-                bmi: provider.bmi,
-                status: provider.status,
-                color: provider.color,
+      body: Expanded(
+        child: SafeArea(
+          child: Column(
+            children: [
+              Consumer<BmiProvider>(builder: (context, provider, child) => Person(),),
+              Consumer<BmiProvider>(
+                builder: (context, provider, child) => BmiSlider(
+                  label: 'Height',
+                  unit: BmiUnit.m,
+                  sliderValue: provider.heightValue,
+                  sliderDivision: 100,
+                  sliderMax: 2.2,
+                  sliderMin: 1.2,
+                  onChange: (newValue) {
+                    provider.changeHeight(newValue);
+                  },
+                ),
               ),
-            ),
+              Consumer<BmiProvider>(
+                builder: (context, provider, child) => BmiSlider(
+                  label: 'Weight',
+                  unit: BmiUnit.kg,
+                  sliderValue: provider.weightValue,
+                  sliderDivision: 200,
+                  sliderMax: 130.0,
+                  sliderMin: 30.0,
+                  onChange: (newValue) {
+                    provider.changeWeight(newValue);
+                  },
+                ),
+              ),
+              Expanded(
+                child: Consumer<BmiProvider>(
+                  builder: (context, provider, child) => BmiResult(
+                    bmi: provider.bmi,
+                    status: provider.status,
+                    color: provider.color,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -116,32 +120,35 @@ class BmiSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              label,
-              style: txtLabelStyle,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: RichText(
-                text: TextSpan(
-                    text: sliderValue.toStringAsFixed(1),
-                    style: txtValueStyle,
-                    children: [
-                      TextSpan(
-                        text: ' ${unit.name}',
-                        style: txtLabelStyle.copyWith(fontSize: 20),
-                      )
-                    ]),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                label,
+                style: txtLabelStyle,
               ),
-            ),
-          ],
+              const SizedBox(
+                width: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                child: RichText(
+                  text: TextSpan(
+                      text: sliderValue.toStringAsFixed(1),
+                      style: txtValueStyle,
+                      children: [
+                        TextSpan(
+                          text: ' ${unit.name}',
+                          style: txtLabelStyle.copyWith(fontSize: 20),
+                        )
+                      ]),
+                ),
+              ),
+            ],
+          ),
         ),
         Slider(
           activeColor: Colors.white70,
