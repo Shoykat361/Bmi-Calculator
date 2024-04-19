@@ -125,8 +125,8 @@ class BmiSlider extends StatelessWidget {
           ),
         ),
         Slider(
-          activeColor: Colors.white70,
-          inactiveColor: Colors.white30,
+          activeColor: Colors.blueGreen,
+          inactiveColor: Colors.blueGrotto,
           label: sliderValue.toStringAsFixed(1),
           value: sliderValue,
           divisions: sliderDivision,
