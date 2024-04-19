@@ -20,10 +20,16 @@ const textStyle3 = TextStyle(
 
 class DataContainer extends StatelessWidget {
 
-  DataContainer({required this.icon, required this.title});
+  //DataContainer({required this.icon, required this.title});
 
   final IconData icon;
   final String title;
+  final bool isSelected;
+  const DataContainer({
+    required this.title,
+    required this.icon,
+    this.isSelected = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,3 +53,33 @@ class DataContainer extends StatelessWidget {
     );
   }
 }
+
+/*class DataContainer extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final bool isSelected;
+
+  const DataContainer({
+    required this.title,
+    required this.icon,
+    this.isSelected = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Icon(
+          icon,
+          color: isSelected ? Colors.white : Colors.black,
+        ),
+        Text(
+          title,
+          style: TextStyle(
+            color: isSelected ? Colors.white : Colors.black,
+          ),
+        ),
+      ],
+    );
+  }
+}*/

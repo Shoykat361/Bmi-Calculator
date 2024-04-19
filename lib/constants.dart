@@ -17,6 +17,8 @@ const txtResultStyle = TextStyle(
   color: Colors.white,
 );
 
+
+
 abstract final class BMI {
   static const String underweightSevere = 'Underweight (Severe thinnes)';
   static const String underweightModerate = 'Underweight (Moderate thinness)';
@@ -30,4 +32,10 @@ abstract final class BMI {
 
 enum BmiUnit {
   m, ft, kg, lb,
+}
+
+enum Gender {
+  male,
+  female,
+  none,
 }

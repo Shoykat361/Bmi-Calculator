@@ -18,21 +18,35 @@ class BmiProvider extends ChangeNotifier {
   bool get male => _male;
   bool get female => _female;
 
+  /*BmiProvider() {
+    _updateBmi();
+  }*/
+  void resetSliderValue() {
+    _heightValue;
+    _weightValue;
+    _updateBmi();
+    BmiProvider();
+    notifyListeners();
+  }
   BmiProvider() {
     _updateBmi();
   }
 
 
   changeHeight(double value) {
-    _heightValue = value;
-    _updateBmi();
-    notifyListeners();
+    if (male || female) {
+      _heightValue = value;
+      _updateBmi();
+      notifyListeners();
+    }
   }
 
   changeWeight(double value) {
-    _weightValue = value;
-    _updateBmi();
-    notifyListeners();
+    if (male || female) {
+      _weightValue = value;
+      _updateBmi();
+      notifyListeners();
+    }
   }
 
   updateMale(bool value) {
@@ -57,6 +71,7 @@ class BmiProvider extends ChangeNotifier {
     _bmi = weightValue / (heightValue * heightValue);
     _updateStatus();
     _updateColor();
+    notifyListeners();
   }
 
   _updateStatus() {
@@ -83,7 +98,7 @@ class BmiProvider extends ChangeNotifier {
     }
   }
 
-  String _getStatus() {
+  /*String _getStatus() {
     if(bmi < 16.0) {
       return BMI.underweightSevere;
 
@@ -107,6 +122,59 @@ class BmiProvider extends ChangeNotifier {
       return BMI.obese_2;
     }
     return BMI.obese_3;
+  }*/
+  String _getStatus() {
+    if (male) {
+      if (bmi < 16.0) {
+        return BMI.underweightSevere;
+      }
+      if (bmi >= 16.0 && bmi <= 16.9) {
+        return BMI.underweightModerate;
+      }
+      if (bmi >= 17.0 && bmi <= 18.4) {
+        return BMI.underweightMild;
+      }
+      if (bmi >= 18.5 && bmi <= 24.9) {
+        return BMI.normal;
+      }
+      if (bmi >= 25.0 && bmi <= 29.9) {
+        return BMI.overweightPre;
+      }
+      if (bmi >= 30.0 && bmi <= 34.9) {
+        return BMI.obese_1;
+      }
+      if (bmi >= 35.0 && bmi <= 39.9) {
+        return BMI.obese_2;
+      }
+      return BMI.obese_3;
+    } else if (female) {
+      // Default status calculation for female or if gender not selected
+      if (bmi < 16.0) {
+        return BMI.underweightSevere;
+      }
+      if (bmi >= 16.0 && bmi <= 16.9) {
+        return BMI.underweightModerate;
+      }
+      if (bmi >= 17.0 && bmi <= 18.4) {
+        return BMI.underweightMild;
+      }
+      if (bmi >= 18.5 && bmi <= 24.9) {
+        return BMI.normal;
+      }
+      if (bmi >= 25.0 && bmi <= 29.9) {
+        return BMI.overweightPre;
+      }
+      if (bmi >= 30.0 && bmi <= 34.9) {
+        return BMI.obese_1;
+      }
+      if (bmi >= 35.0 && bmi <= 39.9) {
+        return BMI.obese_2;
+      }
+      return BMI.obese_3;
+    }
+    else {
+      return 'Select Male Or Female';
+    }
   }
 
 }
