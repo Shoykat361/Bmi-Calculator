@@ -195,12 +195,13 @@ class _PersonState extends State<Person> {
                 selectedGender = Gender.male;
               });
               Provider.of<BmiProvider>(context, listen: false).updateMale(true);
+              Provider.of<BmiProvider>(context, listen: false).resetSliderValue();
 
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ContainerBox(
-                boxColor: selectedGender == Gender.male ? Colors.green : Colors.red,
+                boxColor: selectedGender == Gender.male ? Colors.blueGreen : Colors.blueGrotto,
                 childwidget: DataContainer(
                   title: 'Male',
                   icon: FontAwesomeIcons.male,
@@ -222,7 +223,7 @@ class _PersonState extends State<Person> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ContainerBox(
-                boxColor: selectedGender == Gender.female ? Colors.green : Colors.red,
+                boxColor: selectedGender == Gender.female ? Colors.blueGreen : Colors.blueGrotto,
                 childwidget: DataContainer(
                   title: 'Female',
                   icon: FontAwesomeIcons.female,
