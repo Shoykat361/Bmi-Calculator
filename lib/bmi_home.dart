@@ -195,6 +195,7 @@ class _PersonState extends State<Person> {
                 selectedGender = Gender.male;
               });
               Provider.of<BmiProvider>(context, listen: false).updateMale(true);
+              Provider.of<BmiProvider>(context, listen: false).resetSliderValue();
 
             },
             child: Padding(

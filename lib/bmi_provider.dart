@@ -18,16 +18,6 @@ class BmiProvider extends ChangeNotifier {
   bool get male => _male;
   bool get female => _female;
 
-  /*BmiProvider() {
-    _updateBmi();
-  }*/
-  void resetSliderValue() {
-    _heightValue;
-    _weightValue;
-    _updateBmi();
-    BmiProvider();
-    notifyListeners();
-  }
   BmiProvider() {
     _updateBmi();
   }
@@ -39,7 +29,15 @@ class BmiProvider extends ChangeNotifier {
       _updateBmi();
       notifyListeners();
     }
+
   }
+  void resetSliderValue (){
+
+    _heightValue = 1.5;
+    _weightValue = 50.0;
+    notifyListeners();
+  }
+
 
   changeWeight(double value) {
     if (male || female) {
@@ -51,13 +49,13 @@ class BmiProvider extends ChangeNotifier {
 
   updateMale(bool value) {
     _male = value;
-    _female = !value; // Ensure only one gender is selected
+    _female = false; // Ensure only one gender is selected
     notifyListeners();
   }
 
   updateFemale(bool value) {
     _female = value;
-    _male = !value; // Ensure only one gender is selected
+    _male = false; // Ensure only one gender is selected
     notifyListeners();
   }
   //saha
